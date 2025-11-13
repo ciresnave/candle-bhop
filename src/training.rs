@@ -19,7 +19,7 @@ pub(super) fn run_lbfgs_training<M: SimpleModel>(
     );
 
     // create an optimiser
-    let mut optimiser = Lbfgs::new(varmap.all_vars(), params, model.clone())?;
+    let mut optimiser = Lbfgs::new(varmap.all_vars(), params, model)?;
     let mut fn_evals = 1;
     let mut converged = false;
 
