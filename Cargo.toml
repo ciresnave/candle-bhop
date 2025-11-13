@@ -1,15 +1,22 @@
 [package]
-name = "bhop"
-version = "0.1.0"
+name = "candle-bhop"
+version = "0.2.0"
 edition = "2021"
+readme = "README.md"
+license = "MIT"
+keywords = ["basin-hopping", "candle", "tensor", "machine-learning", "optimization"]
+categories = ["science"]
+description = "Basin hopping global optimization for candle machine learning models"
+repository = "https://github.com/KGrewal1/candle-bhop"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 anyhow = "1.0.75"
-candle-core = {version = "0.4"}
-candle-nn = {version = "0.4"}
-optimisers = { package = "candle-optimisers", version = "0.4"}
+# Updated to git version for CUDA 13.0 support via cudarc 0.17.1+
+candle-core = { git = "https://github.com/huggingface/candle", rev = "db08cc0a5a786e00f873c35ced7db51fd7d7083a" }
+candle-nn = { git = "https://github.com/huggingface/candle", rev = "db08cc0a5a786e00f873c35ced7db51fd7d7083a" }
+optimisers = { package = "candle-optimisers", git = "https://github.com/ciresnave/candle-optimisers", branch = "update-candle-deps-for-cuda-13" }
 rand = "0.8.5"
 rand_xoshiro = "0.6.0"
 log = "0.4.20"
@@ -20,7 +27,7 @@ parquet = "50.0.0"
 hf-hub = "0.3.2"
 image = "0.24.7"
 clap = { version = "4.5.1", features = ["derive"] }
-candle-datasets = "0.4"
+candle-datasets = { git = "https://github.com/huggingface/candle", rev = "db08cc0a5a786e00f873c35ced7db51fd7d7083a" }
 env_logger = "0.11.0"
 
 
@@ -28,6 +35,7 @@ env_logger = "0.11.0"
 default = []
 cuda = ["candle-core/cuda", "candle-nn/cuda", "optimisers/cuda"]
 cudnn = ["cuda", "candle-core/cudnn"]
+
 [profile.release]
 lto = true # maximal LTO optimisaiton
 codegen-units = 1 # would optimise code further but slow to compile
